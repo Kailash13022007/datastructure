@@ -36,12 +36,13 @@ void pop(int stack[],int *top)
     printf("%d is poped",stack[*top]);
      --(*top);
      }
+}
 void peak(int stack[],int*top)
 {
     if(*top==-1)
            printf("The stack is empty");
     else
-        printf("The top is %d",stack[*top];
+        printf("The top is %d",stack[*top]);
 }
 int main()
 {
