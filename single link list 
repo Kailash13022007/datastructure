@@ -1,0 +1,174 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct Node
+{
+  int data;
+  struct Node* next;
+};
+struct Node* CreateNode(int data)
+{
+    struct Node* nn=(struct Node*) malloc(sizeof(struct Node));
+    nn->data=data;
+    nn->next=NULL;
+    return nn;
+}
+struct Node* AddBegin(struct Node* head,int data)
+{
+    struct Node* nn=CreateNode(data);
+    if(head==NULL){
+        return nn;
+    }
+    nn->next=head;
+    return nn;
+}
+struct Node* AddEnd(struct Node* head,int data)
+{
+    struct Node* nn=CreateNode(data);
+    if(head==NULL)
+    {
+        return nn;
+    }
+    struct Node* temp=head;
+    while(temp->next!=NULL)
+          temp=temp->next;
+    temp->next=nn;
+    return head;
+}
+struct Node* AddPosition(struct Node* head,int data,int pos){
+    struct Node* nn=CreateNode(data);
+    if(head==NULL)
+    {
+        return nn;
+    }
+    else if(pos==1)
+    {
+        return(AddBegin(head,data));
+    }
+    int i=1;
+    struct Node* temp=head;
+    while(i<pos-1 && temp->next!=NULL)
+    {
+        temp=temp->next;
+        i++;
+    }
+    nn->next=temp->next;
+    temp->next=nn;
+    return head;
+}
+void Traverse(struct Node* head)
+{
+    struct Node* temp=head;
+    printf("LINKED LIST IS......\n\t\t\t");
+    while(temp!=NULL)
+    {
+        printf("|%d|-> ",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL\n");
+}
+struct Node* DeleteBegin(struct Node* head)
+{
+    if(head==NULL)
+        return NULL;
+    printf("%d : Deleted successfully!",head->data);
+    return head->next;
+}
+struct Node* DeleteEnd(struct Node* head)
+{
+   struct Node* temp=head;
+   if(head==NULL || head->next==NULL)
+     return NULL;
+   while(temp->next->next!=NULL)
+     temp=temp->next;
+   printf("%d : Deleted successfully!",temp->next->data);
+   temp->next=NULL;
+   return head;
+}
+struct Node* DeletePosition(struct Node* head, int pos)
+{
+    if (head == NULL) {
+        printf("List is empty\n");
+        return NULL;
+    }
+    else if(pos==1)
+    {
+        return DeleteBegin(head);
+    }
+    else
+    {
+            struct Node* temp=head;
+
+            int i =1;
+            while(i<pos-1&&temp->next!=NULL)
+            {
+                temp=temp->next;
+                i++;
+            }
+             struct Node* tar=temp->next;
+
+            temp->next=temp->next->next;
+            free(tar);
+    }
+
+    return head;
+}
+int main()
+{
+ struct Node* head=NULL;
+  int pos;
+  int choice=1,data;
+ while(choice!=0){
+    printf("|--------------------------|\n");
+    printf("| 0) Exit                  |\n");
+    printf("| 1) Insert at begin       |\n");
+    printf("| 2) Insert at end         |\n");
+    printf("| 3) Insert at position    |\n");
+    printf("| 4) Delete at begin       |\n");
+    printf("| 5) Delete at end         |\n");
+    printf("| 6) Delete at position    |\n");
+    printf("| 7) Traverse              |\n");
+    printf("|--------------------------|\n");
+    printf("Enter choice: ");
+    scanf("%d",&choice);
+    switch(choice){
+      case 0:
+             printf("thankyou....");
+             exit(0);
+      case 1:
+             printf("Enter data to add begin : ");
+             scanf("%d",&data);
+             head=AddBegin(head,data);
+             break;
+      case 2:
+             printf("Enter data to add end: ");
+             scanf("%d",&data);
+             head=AddEnd(head,data);
+             break;
+      case 3:
+             printf("Enter data to add position : ");
+             scanf("%d",&data);
+             printf("Enter position to add data : ");
+             scanf("%d",&pos);
+             head=AddPosition(head,data,pos);
+             break;
+      case 4:
+             head=DeleteBegin(head);
+             break;
+      case 5:
+             head=DeleteEnd(head);
+             break;
+      case 6:
+             printf("Enter position to add data : ");
+             scanf("%d",&pos);
+             head=DeletePosition(head,pos);
+             break;
+      case 7:
+             Traverse(head);
+             break;
+      default:
+             printf("!!!Invalid choice!!!\n");
+             break;
+    }
+ }
+return 0;
+}
