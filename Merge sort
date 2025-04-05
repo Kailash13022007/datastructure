@@ -1,0 +1,48 @@
+#include <stdio.h>
+#define SIZE 9
+void merge(int *,int,int,int);
+void merge_sort(int arr[],int low,int high){
+    if(low<high){
+    	int mid = (low + high)/2;
+    	merge_sort(arr,low,mid);
+    	merge_sort(arr,mid+1,high);
+    	merge(arr,low,mid,high);
+    }
+}
+void merge(int *a,int low,int mid,int high){
+	int i = low,j = mid + 1,k = low;
+	int b[SIZE] = {};
+	while(i<=mid && j<=high){
+		if(a[i]<a[j]){
+			b[k] = a[i];i++;
+		}
+		else{
+			b[k] = a[j];j++;
+		}
+		k++;
+	}
+	while(i<=mid){
+		b[k] = a[i];
+		i++;
+		k++;
+	}
+	while(j<=high){
+		b[k] = a[j];
+		j++;
+		k++;
+	}
+	for(int k = low;k <= high;k++)
+		a[k] = b[k];
+}
+int main() {
+    int arr[SIZE]={};
+    int high = SIZE-1;
+    int low = 0;
+    printf("Enter the elements: ");
+    for(int i = 0;i<SIZE;i++)
+        scanf("\n%d",&arr[i]); 
+    merge_sort(arr,low,high);
+    printf("Sorted array:\n");
+    for(int j=0;j<SIZE;j++)
+        printf("  %d",arr[j]);
+}
