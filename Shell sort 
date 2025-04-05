@@ -1,0 +1,31 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#define SIZE 9
+void shell_sort(int arr[],int n){
+    int gap = n/2;
+    int temp,swap;
+    do{
+        do{
+            swap = 0;
+            for(int i = 0;i < n-gap;i++)
+                if(arr[i]>arr[i+gap]){
+                    temp = arr[i];
+                    arr[i] = arr[i+gap];
+                    arr[i+gap] = temp;
+                    swap = 1;
+                }
+        }while(swap==1);
+        gap = gap/2;
+    }while(gap>0);
+}
+int main() {
+    int arr[SIZE]={};
+    int n = SIZE;
+    printf("Enter the elements: ");
+    for(int i = 0;i<SIZE;i++)
+        scanf("\n%d",&arr[i]); 
+    shell_sort(arr,n);
+    printf("Sorted array:\n");
+    for(int j=0;j<n;j++)
+        printf("  %d",arr[j]);
+}
