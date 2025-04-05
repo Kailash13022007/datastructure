@@ -1,0 +1,103 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node* next;
+};
+struct node* create(int data)
+{
+	struct node* nn=(struct node*)malloc(sizeof(struct node));
+	nn->data=data;
+	nn->next=NULL;
+	return nn;
+}
+void push(struct node** head,struct node** top,int data)
+{
+	struct node* nn=create(data);
+	if(*head==NULL)
+	{
+		*head=nn;
+		*top=nn;
+	}
+	else
+	{
+	(*top)->next=nn;
+	*top=nn;
+	}
+	printf("pushed=%d \n",data);
+}
+void pop(struct node** head,struct node** top)
+{
+	if(*head==NULL)
+		printf("empty");
+	else if((*head)->next==NULL)
+	{
+		printf("poped=%d \n",(*head)->data);
+		*top=*head=NULL;
+	}
+	else
+	{
+		struct node* temp=*head;
+		while(temp->next!=*top)
+			temp=temp->next;
+		printf("poped=%d \n",(*top)->data);
+		free(*top);
+		*top=temp;
+		(*top)->next=NULL;
+	}
+}
+void display(struct node** head,struct node** top)
+{
+	if(*top==NULL)
+		printf("empty");
+	else
+	{
+		struct node* temp=*head;
+		while(temp!=NULL)
+		{
+			printf("|%d|->",temp->data);
+			temp=temp->next;
+		}
+	}
+}
+int main()
+{
+	struct node* head=NULL;
+	struct node* top=NULL;
+	int choice=0,value;
+	while(choice!=4)
+	{
+		printf("\n|-------------------------------------|\n");
+		printf("\n|        MAIN MENU                    |\n");
+		printf("\n|         1.PUSH                      |\n");
+		printf("\n|         2.POP                       |\n");
+		printf("\n|         3.DISPLAY                   |\n");
+		printf("\n|         4.EXIT                      |\n");
+		printf("\n|-------------------------------------|\n");
+		printf("\n");
+		printf("\n ENTER YOUR CHOICE=");
+		scanf("%d",&choice);		
+		switch(choice)
+		{
+			 case 1:
+			  printf("ENTER THE VALUE TO PUSH=");
+  			  scanf("%d",&value);
+			  push(&head,&top,value);
+			  break;
+	 		 case 2:
+			  pop(&head,&top);
+			  break;
+			 case 3:
+			  display(&head,&top);
+			  break;
+			 case 4:
+			  printf("THANK YOU.....");
+			  break;
+	 		default: 
+			printf("INVALID CHOICE");
+		}
+	}
+return 0;
+	
+}
