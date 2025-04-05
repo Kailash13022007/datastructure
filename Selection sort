@@ -1,0 +1,29 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#define SIZE 5
+void selection_sort(int arr[],int n){
+    int temp,min;
+    for(int pos=0;pos<n-1;pos++){
+        min = pos;
+        for(int i=pos+1;i<n;i++)
+            if(arr[i]<arr[min])
+                min = i; 
+        if(min != pos){
+            temp = arr[pos];
+            arr[pos] = arr[min];
+            arr[min] = temp;
+        }
+        
+    }
+}
+int main() {
+    int arr[SIZE]={};
+    int n = SIZE;
+    printf("Enter the elements: ");
+    for(int i = 0;i<SIZE;i++)
+        scanf("\n%d",&arr[i]);
+    selection_sort(arr,n);
+    printf("Sorted array:\n");
+    for(int j=0;j<n;j++)
+        printf("  %d",arr[j]);
+}
