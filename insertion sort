@@ -1,0 +1,26 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#define SIZE 5
+void insertion_sort(int arr[],int n){
+    int temp;
+    for(int i=0;i<n;i++){
+        temp = arr[i];
+        int j = i - 1;
+        while(j>=0 && temp<arr[j]){
+            arr[j+1] = arr[j];
+            j--;
+        }
+        arr[j+1] = temp;
+    }
+}
+int main() {
+    int arr[SIZE]={};
+    int n = SIZE;
+    printf("Enter the elements: ");
+    for(int i = 0;i<SIZE;i++)
+        scanf("\n%d",&arr[i]);
+    insertion_sort(arr,n);
+    printf("Sorted array:\n");
+    for(int j=0;j<n;j++)
+        printf("  %d",arr[j]);
+}
