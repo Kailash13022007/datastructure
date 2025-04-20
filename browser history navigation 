@@ -1,0 +1,91 @@
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+#define SIZE 10
+
+char stack[SIZE][MAX];  // Stack to store URLs
+int top = -1;
+
+// Push operation
+void visitPage(char url[]) {
+    if(top == SIZE - 1) {
+        printf("History is full!\n");
+    } else {
+        top++;
+        strcpy(stack[top], url);
+        printf("Visited: %s\n", url);
+    }
+}
+
+// Pop operation
+void goBack() {
+    if(top <= 0) {
+        printf("No previous page to go back to.\n");
+    } else {
+        top--;
+        printf("Went back to: %s\n", stack[top]);
+    }
+}
+
+// Display current page
+void currentPage() {
+    if(top == -1) {
+        printf("No page visited yet.\n");
+    } else {
+        printf("Current page: %s\n", stack[top]);
+    }
+}
+
+int main() {
+    int choice;
+    char url[MAX];
+
+    do {
+        printf("\n--- Browser Menu ---\n");
+        printf("1. Visit new page\n");
+        printf("2. Go back\n");
+        printf("3. Current page\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); // consume newline
+
+        switch(choice) {
+            case 1:
+                printf("Enter URL: ");
+                fgets(url, MAX, stdin);
+                url[strcspn(url, "\n")] = '\0'; // remove newline
+                visitPage(url);
+                break;
+            case 2:
+                goBack();
+                break;
+            case 3:
+                currentPage();
+                break;
+            case 4:
+                printf("Exiting browser simulation.\n");
+                break;
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    } while(choice != 4);
+
+    return 0;
+}
+
+
+---
+
+Real-life Use:
+
+This simulates browser navigation like Chrome or Firefox – how you go back to a previous page. It's a classic and practical example of how stacks are used in real applications.
+
+
+---
+
+Want to expand it with forward navigation (using two stacks) or clear history? I can help with that too!
+
